@@ -15,7 +15,7 @@ address:{type:String,required:true},
 
 
 level: {type:mongoose.Schema.Types.ObjectId, ref:'Level', required:false},
-classs:{type:mongoose.Schema.Types.ObjectId,ref:'Class',required:false},
+class:{type:mongoose.Schema.Types.ObjectId,ref:'Class',required:false},
 
 
 });
