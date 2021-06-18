@@ -18,6 +18,7 @@ var teacherClass = require('./routes/teacher_class');
 var studentRouter = require('./routes/student');
 var classRouter = require('./routes/class');
 var levelRouter = require('./routes/level');
+var homeworkRouter = require('./routes/homework');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use('/courses',coursesRouter);
 app.use('/student', studentRouter);
 app.use('/class', classRouter);
 app.use('/level', levelRouter);
+app.use('/homeworks',homeworkRouter);
 
 
 
