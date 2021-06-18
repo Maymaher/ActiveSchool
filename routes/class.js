@@ -1,35 +1,34 @@
 var express = require('express');
 var router = express.Router();
-const userModel = require("../models/user");
+const classModel = require("../models/class");
 
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
+
+//GET class
+router.get('/class', (req, res) => {
+    console.log('list class')
+    classModel.find({},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list class") 
+      
+      })
+  
+  })
+
  
 
 router.post('/', (req, res) => {
-  const name=req.body.name;
-  const email=req.body.email;
-  const password=req.body.password;
-  const avatar=req.body.avatar;
-  const  type=req.body.type;
-  const address=req.body.address;
-  const level= req.body.level;
-  const classs=req.body.classs;
+  const   number=req.body.number;
+
   console.log(req.body) ///
   const userData = req.body
-  const userInstance = new userModel({
+  const userInstance = new  classModel ({
 
-    name,
-    email,
-    password,
-    avatar,
-    type,
-    address,
-    level,
-    classs,
+    number
 
 
   })
