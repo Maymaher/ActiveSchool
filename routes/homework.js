@@ -4,7 +4,7 @@ const HomeWork = require("../models/homework");
 
 // Get all homeworks
 router.get("/", async (req, res) => {
-	const homeworks = await HomeWork.find().populate("courseLevel")
+	const homeworks = await HomeWork.find().populate("course")
 	res.send(homeworks)
 })
 
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
 	const homework = new HomeWork({
 		name: req.body.name,
-		courseLevel: req.body.courseLevel,
+		course: req.body.course,
 	})
 	await homework.save()
 	res.send(homework)
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
 
-	const homework = await HomeWork.findOne({ _id: req.params.id }).populate("courseLevel")
+	const homework = await HomeWork.findOne({ _id: req.params.id }).populate("course")
 	res.send(homework)
     }
     catch {
@@ -40,8 +40,8 @@ router.patch("/:id", async (req, res) => {
 			homework.name = req.body.name
 		}
 
-		if (req.body.courseLevel) {
-		   homework.courseLevel = req.body.courseLevel
+		if (req.body.course) {
+		   homework.course = req.body.course
 		}
 
 		await homework.save()

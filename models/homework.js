@@ -1,11 +1,12 @@
 const mongoose=require('mongoose');
 const validator = require("validator")
 
+
 homeworkschema=new mongoose.Schema({
 
 name:{type:String,required:true},
 
-courseLevel:{type:mongoose.Schema.Types.ObjectId,ref:'CourseLevel',required:false},
+course:{type:mongoose.Schema.Types.ObjectId,ref:'Course',required:false},
 
 
 });

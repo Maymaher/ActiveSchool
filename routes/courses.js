@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 const Course = require("../models/course");
 
+
 // Get all courses
 router.get("/", async (req, res) => {
-	const courses = await Course.find()
+	const courses = await Course.find().populate("level")
 	res.send(courses)
 })
 
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
 
-	const course = await Course.findOne({ _id: req.params.id })
+	const course = await Course.findOne({ _id: req.params.id }).populate("level")
 	res.send(course)
     }
     catch {
@@ -70,7 +71,7 @@ router.delete("/:id", async (req, res) => {
 })
 
 
-//
+
 
 
 
