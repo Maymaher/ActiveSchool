@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
 
    
   const   answer=req.body.answer;
+  const   exam=req.body.exam;
 
 
   console.log(req.body) ///
@@ -29,6 +30,7 @@ router.post('/', (req, res) => {
   const userInstance = new  examAnswerModel ({
 
     answer,
+    exam
    
 
   })
