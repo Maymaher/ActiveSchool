@@ -21,6 +21,9 @@ var levelRouter = require('./routes/level');
 var examRouter = require('./routes/exam');
 var examAnswerRouter = require('./routes/exam_answer');
 
+var matrialRouter = require('./routes/material');
+
+
 var app = express();
 
 // view engine setup
@@ -46,7 +49,7 @@ app.use('/level', levelRouter);
 
 app.use('/exam', examRouter);
 app.use('/examAnswer', examAnswerRouter);
-
+app.use('/material', matrialRouter);
 
 
 
