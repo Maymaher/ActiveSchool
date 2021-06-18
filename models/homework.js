@@ -5,7 +5,7 @@ homeworkschema=new mongoose.Schema({
 
 name:{type:String,required:true},
 
-course:{type:mongoose.Schema.Types.ObjectId,ref:'Course',required:false},
+courseLevel:{type:mongoose.Schema.Types.ObjectId,ref:'CourseLevel',required:false},
 
 
 });
