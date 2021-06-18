@@ -15,6 +15,7 @@ router.post('/', (req, res) => {
   const password=req.body.password;
   const avatar=req.body.avatar;
   const  type=req.body.type;
+  const address=req.body.address;
   const level= req.body.level;
   const classs=req.body.classs;
   console.log(req.body) ///
@@ -26,6 +27,7 @@ router.post('/', (req, res) => {
     password,
     avatar,
     type,
+    address,
     level,
     classs,
 
