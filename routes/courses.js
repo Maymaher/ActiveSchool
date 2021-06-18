@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
 	const course = new Course({
 		name: req.body.name,
 		description: req.body.description,
+		level: req.body.level
 	})
 	await course.save()
 	res.send(course)
@@ -44,6 +45,10 @@ router.patch("/:id", async (req, res) => {
 		   course.description = req.body.description
 		}
 
+		if (req.body.level) {
+			course.level = req.body.level
+		 }
+
 		await course.save()
 		res.send(course)
 	} catch {
@@ -63,6 +68,10 @@ router.delete("/:id", async (req, res) => {
 		res.send({ error: "Course doesn't exist!" })
 	}
 })
+
+
+//
+
 
 
 
