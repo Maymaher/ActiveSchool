@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const HomeWork = require("../models/homework");
+const HomeworkAnswers = require("../models/homework_answer");
 
 // Get all homeworks
 router.get("/", async (req, res) => {
@@ -63,6 +64,31 @@ router.delete("/:id", async (req, res) => {
 		res.send({ error: "HomeWork doesn't exist!" })
 	}
 })
+
+//Get Answers of one homework
+router.get("/:id/answers", async (req, res) => {
+    try {
+
+	const homework_answers = await HomeworkAnswers.find({ homework: req.params.id }).populate("student").populate("homework")
+	res.send(homework_answers)
+    }
+    catch {
+		res.status(404)
+		res.send({ error: "HomeWork doesn't exist!" })
+	}
+})
+
+//create homework answer
+router.post("/:id/answers", async (req, res) => {
+    const homework_answer = new HomeWork({
+      answer: req.body.answer,
+      homework: req.params.id,
+	  //student: auth(id)
+    })
+    await homework_answer.save()
+    res.send(homework_answer)
+  })
+
 
 
 
