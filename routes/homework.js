@@ -18,18 +18,18 @@ router.post("/", async (req, res) => {
 	res.send(homework)
 })
 
-// //Get individual Course
-// router.get("/:id", async (req, res) => {
-//     try {
+//Get individual HomeWork
+router.get("/:id", async (req, res) => {
+    try {
 
-// 	const course = await Course.findOne({ _id: req.params.id })
-// 	res.send(course)
-//     }
-//     catch {
-// 		res.status(404)
-// 		res.send({ error: "Course doesn't exist!" })
-// 	}
-// })
+	const homework = await HomeWork.findOne({ _id: req.params.id })
+	res.send(homework)
+    }
+    catch {
+		res.status(404)
+		res.send({ error: "HomeWork doesn't exist!" })
+	}
+})
 
 // //Update individual Course
 // router.patch("/:id", async (req, res) => {
