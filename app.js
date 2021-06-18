@@ -12,6 +12,7 @@ var router = express.Router();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var attendenceRouter = require('./routes/attendence');
+var coursesRouter = require("./routes/courses");
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(express.static("public"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/attendence', attendenceRouter);
+app.use('/courses',coursesRouter);
 
 
 
