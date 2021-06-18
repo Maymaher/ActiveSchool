@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 const Course = require("../models/course");
 
+
 // Get all courses
 router.get("/", async (req, res) => {
-	const courses = await Course.find()
+	const courses = await Course.find().populate("level")
 	res.send(courses)
 })
 
@@ -13,6 +14,7 @@ router.post("/", async (req, res) => {
 	const course = new Course({
 		name: req.body.name,
 		description: req.body.description,
+		level: req.body.level
 	})
 	await course.save()
 	res.send(course)
@@ -22,7 +24,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
 
-	const course = await Course.findOne({ _id: req.params.id })
+	const course = await Course.findOne({ _id: req.params.id }).populate("level")
 	res.send(course)
     }
     catch {
@@ -44,6 +46,10 @@ router.patch("/:id", async (req, res) => {
 		   course.description = req.body.description
 		}
 
+		if (req.body.level) {
+			course.level = req.body.level
+		 }
+
 		await course.save()
 		res.send(course)
 	} catch {
@@ -63,6 +69,10 @@ router.delete("/:id", async (req, res) => {
 		res.send({ error: "Course doesn't exist!" })
 	}
 })
+
+
+
+
 
 
 

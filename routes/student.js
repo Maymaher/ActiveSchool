@@ -212,6 +212,8 @@ router.get('/parent/:id', (req, res) => {
   
   })
 
+  
+
       //get student with id  authontication
 // router.get('/student', (req, res) => {
 //     console.log('list student')
