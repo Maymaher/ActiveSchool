@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const materialModel = require("../models/material");
-const materialFileModel = require("../models/material_fileserial");
+const materialFileModel = require("../models/material_files");
 const courseLevelModel = require("../models/course_level");
 
 /* GET users listing. */
