@@ -13,11 +13,16 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var attendenceRouter = require('./routes/attendence');
 var coursesRouter = require("./routes/courses");
-var teacherClass = require('./routes/teacher_class');
+var teacherClassRouter = require('./routes/teacher_class');
 
 var studentRouter = require('./routes/student');
 var classRouter = require('./routes/class');
 var levelRouter = require('./routes/level');
+var examRouter = require('./routes/exam');
+var examAnswerRouter = require('./routes/exam_answer');
+
+var matrialRouter = require('./routes/material');
+
 
 var app = express();
 
@@ -42,11 +47,14 @@ app.use('/student', studentRouter);
 app.use('/class', classRouter);
 app.use('/level', levelRouter);
 
+app.use('/exam', examRouter);
+app.use('/examAnswer', examAnswerRouter);
+app.use('/material', matrialRouter);
 
 
 
 
-app.use('/teacherclass', teacherClass);
+app.use('/teacherclass', teacherClassRouter);
 // app.use('/getclasses', teacherClass);
 
 
