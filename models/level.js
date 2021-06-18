@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const validator = require("validator")
 
-levelchema=new mongoose.Schema({
+levelschema=new mongoose.Schema({
 
 number:{type:String,required:true},
  

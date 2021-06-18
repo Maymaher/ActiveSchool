@@ -14,6 +14,9 @@ var usersRouter = require('./routes/users');
 var attendenceRouter = require('./routes/attendence');
 var teacherClass = require('./routes/teacher_class');
 
+var studentRouter = require('./routes/student');
+var classRouter = require('./routes/class');
+var levelRouter = require('./routes/level');
 
 var app = express();
 
@@ -33,6 +36,12 @@ app.use(express.static("public"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/attendence', attendenceRouter);
+app.use('/student', studentRouter);
+app.use('/class', classRouter);
+app.use('/level', levelRouter);
+
+
+
 
 
 app.use('/teacherclass', teacherClass);
