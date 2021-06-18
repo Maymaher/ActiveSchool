@@ -19,6 +19,8 @@ var studentRouter = require('./routes/student');
 var classRouter = require('./routes/class');
 var levelRouter = require('./routes/level');
 var examRouter = require('./routes/exam');
+var examAnswerRouter = require('./routes/exam_answer');
+
 var app = express();
 
 // view engine setup
@@ -43,6 +45,8 @@ app.use('/class', classRouter);
 app.use('/level', levelRouter);
 
 app.use('/exam', examRouter);
+app.use('/examAnswer', examAnswerRouter);
+
 
 
 
