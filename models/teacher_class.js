@@ -5,7 +5,7 @@ teacherClassschema=new mongoose.Schema({
 
 
 
-class:{type:mongoose.Schema.Types.ObjectId,ref:'Class',required:false},
+tclass:{type:mongoose.Schema.Types.ObjectId,ref:'Class',required:false},
 teacher: {type:mongoose.Schema.Types.ObjectId, ref:'User', required:false},
 
 
