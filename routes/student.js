@@ -3,6 +3,7 @@ var router = express.Router();
 const userModel = require("../models/user");
 const schedual_couseModel = require("../models/courses_schedual");
 const schedualModel = require("../models/schedual");
+const parentModel = require("../models/parent");
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -115,12 +116,97 @@ router.post('/', (req, res) => {
         res.send("error occured while saving")
     })
   
+
+  // res.send(req.body);
+
+  // res.send('user created')
+
+})
     //get All student
-router.get('/student', (req, res) => {
-    console.log('list student')
-    userModel.find({},(err,data)=>{
+    router.get('/student', (req, res) => {
+        console.log('list student')
+        userModel.find({},(err,data)=>{
+          if(!err) return res.json(data) 
+          res.send("erro cannot list student") 
+          
+          })
+      
+      })
+
+
+  //add courses on schedual
+
+  router.post('/courses ', (req, res) => {
+    const courses=req.body.courses;
+    const day=req.body.day;
+    console.log(req.body) ///
+    const userData = req.body
+    const userInstance = new schedual_couseModel({
+  courses,
+   day
+  
+  
+    })
+    console.log(userInstance);
+    
+  
+  
+    userInstance.save((err,userDoc)=>{
+        if(!err) return res.json(userDoc)
+        console.log(err);
+        res.send("error occured while saving")
+    })
+})
+
+
+ 
+ 
+ 
+ //add student-parent info
+router.post('/parent', (req, res) => {
+    const name=req.body.name;
+    const email=req.body.email;
+    const password=req.body.password;
+    const  type="parent";
+    const address=req.body.address;
+    const phone= req.body.phone;
+    const student=req.body.student;
+    console.log(req.body) ///
+    const userData = req.body
+    const userInstance = new parentModel({
+  
+      name,
+      email,
+      password,
+      type,
+      phone,
+      address,
+      student,
+  
+  
+    })
+    console.log(userInstance);
+    
+  
+  
+    userInstance.save((err,userDoc)=>{
+        if(!err) return res.json(userDoc)
+        console.log(err);
+        res.send("error occured while saving")
+    })
+ 
+  // res.send(req.body);
+
+  // res.send('user created')
+
+})
+
+//get student parent info
+router.get('/parent/:id', (req, res) => {
+    console.log('list parent')
+    parentModel.find({student:req.params.id},(err,data)=>{
       if(!err) return res.json(data) 
-      res.send("erro cannot list student") 
+      res.send("erro cannot list parent") 
       
       })
   
@@ -136,13 +222,4 @@ router.get('/student', (req, res) => {
 //       })
   
 //   })
-
-
-  
-  // res.send(req.body);
-
-  // res.send('user created')
-
-})
-
 module.exports = router;
