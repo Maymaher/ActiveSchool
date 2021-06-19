@@ -108,7 +108,11 @@ const auth = () => {
           });
       })(req, res, next);
   }
+
 }
+
+app.post('/authenticate', auth() , (req, res) => {
+  res.status(200).json({"statusCode" : 200 ,"message" : "hello"});
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
