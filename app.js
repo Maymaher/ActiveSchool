@@ -123,6 +123,7 @@ passport.use(new LocalStrategy(
       }
   }
 ));
+})
 
 
 
