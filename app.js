@@ -4,11 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var express = require('express');
-const mongoose = require("mongoose");
+var mongoose = require('mongoose');
+var passport = require('passport');
+var config = require('./config/database');
 const cors = require("cors");
 var router = express.Router();
-const  passport  =  require('passport');
 const  LocalStrategy  =  require('passport-local').Strategy;
+ 
+var favicon = require('serve-favicon');
+ 
+var bodyParser = require('body-parser');
+
+ 
 
 
 
@@ -26,6 +33,7 @@ var examRouter = require('./routes/exam');
 var examAnswerRouter = require('./routes/exam_answer');
 
 var matrialRouter = require('./routes/material');
+var api = require('./routes/api');
 
 
 var app = express();
@@ -56,29 +64,16 @@ app.use('/homeworks',homeworkRouter);
 app.use('/exam', examRouter);
 app.use('/examAnswer', examAnswerRouter);
 app.use('/material', matrialRouter);
-
-
-
-
 app.use('/teacherclass', teacherClassRouter);
 
-// app.use('/getclasses', teacherClass);
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({'extended':'false'}));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use(passport.initialize());
+app.use('/api', api);
 
-
-//Authontication
-// const auth = () => {
-//   return (req, res, next) => {
-//       next()
-//   }
-// }
-
-// app.post('/authenticate', auth() , (req, res) => {
-//   res.status(200).json({"statusCode" : 200 ,"message" : "hello"});
-// });
-
-
-
-// app.use("/api/users", usersRouter);
 
 
 // catch 404 and forward to error handler
@@ -97,74 +92,19 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//Auth
-const auth = () => {
-  return (req, res, next) => {
-      passport.authenticate('local', (error, user, info) => {
-          if(error) res.status(400).json({"statusCode" : 200 ,"message" : error});
-          req.login(user, function(error) {
-              if (error) return next(error);
-              next();
-          });
-      })(req, res, next);
-  }
+//Db Conection
 
-}
-
-app.post('/authenticate', auth() , (req, res) => {
-  res.status(200).json({"statusCode" : 200 ,"message" : "hello"});
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-      if(username === "admin" && password === "admin"){
-          return done(null, username);
-      } else {
-          return done("unauthorized access", false);
-      }
-  }
-));
-})
-
-
-
-passport.serializeUser(function(user, done) {
-  if(user) done(null, user);
-});
-
-passport.deserializeUser(function(id, done) {
-  done(null, id);
-});
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const isLoggedIn = (req, res, next) => {
-    if(req.isAuthenticated()){
-        return next()
-    }
-    return res.status(400).json({"statusCode" : 400, "message" : "not authenticated"})
-}
-
-app.get('/getData', isLoggedIn, (req, res) => {
-  res.json("data")
-})
-const MONGO_URL = "mongodb://localhost:27017/ActiveSchoolDB";
-mongoose.connect(
-  MONGO_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  (err) => {
-    if (err) return console.error(err);
-    console.log("connected to mongoose");
-  }
-);
-mongoose.set("useFindAndModify", false);
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection succesful'))
+  .catch((err) => console.error(err));
+ 
+ mongoose.set("useFindAndModify", false);
 const port = 3200;
 app.listen(port, function () {
   console.log(`express web server listening on port ${port}`);
 });
+
 
 
 module.exports = app;
