@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const attendenceModel = require("../models/attendence");
-
+const passport = require('passport');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -9,7 +9,7 @@ const attendenceModel = require("../models/attendence");
 // });
  
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', { session : false}),(req, res) => {
   const status=req.body.status;
   const date=req.body.date;
  
