@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const classModel = require("../models/class");
+const passport = require('passport');
 
 
 /* GET users listing. */
@@ -9,7 +10,7 @@ const classModel = require("../models/class");
 // });
 
 //GET class
-router.get('/class', (req, res) => {
+router.get('/class',passport.authenticate('jwt', { session : false}), (req, res) => {
     console.log('list class')
     classModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
@@ -21,7 +22,7 @@ router.get('/class', (req, res) => {
 
  
 
-router.post('/', (req, res) => {
+router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => {
   const   number=req.body.number;
 
   console.log(req.body) ///

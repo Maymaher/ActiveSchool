@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 const examAnswerModel = require("../models/exam_answer");
 
+const passport = require('passport');
 
 
 //GET all students exams
-router.get('/', (req, res) => {
+router.get('/', passport.authenticate('jwt', { session : false}),(req, res) => {
     console.log('list all exams')
     examAnswerModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
@@ -18,7 +19,7 @@ router.get('/', (req, res) => {
 
 //student upload exam answer and get student data from auth
 
-router.post('/', (req, res) => {
+router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => {
 
    
   const   answer=req.body.answer;

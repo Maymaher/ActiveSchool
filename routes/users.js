@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userModel = require("../models/user");
+const passport = require('passport');
 
 
 /* GET users listing. */
@@ -9,7 +10,7 @@ const userModel = require("../models/user");
 // });
  
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', { session : false}),(req, res) => {
   const name=req.body.name;
   const email=req.body.email;
   const password=req.body.password;

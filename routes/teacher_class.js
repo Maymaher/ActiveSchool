@@ -4,12 +4,12 @@ var teacherClass=require("../models/teacher_class");
 
 // var user=require("../models/user");
 var classes=require("../models/class");
-
+const passport = require('passport');
 // var teacherClass=require("../models/teacher_class");
 
 
 //get all teachers and thier classes
-router.get('/',async (req, res)=> {
+router.get('/',passport.authenticate('jwt', { session : false}), async (req, res)=> {
   const teachers= await teacherClass.find().populate("tclass").populate("teacher");
   res.send(teachers);
 });
@@ -33,14 +33,14 @@ router.post('/',async (req, res)=> {
 });
 
 //get teacher with id 
-router.get("/:id", async (req, res) => {
+router.get("/:id", passport.authenticate('jwt', { session : false}), async (req, res) => {
 	const teacher = await teacherClass.find({ teacher: req.params.id }).populate("tclass").populate("teacher")
 	res.send(teacher)
 })
 
 
 //delete specific class for one teacher
-router.delete("/", async (req, res) => {
+router.delete("/", passport.authenticate('jwt', { session : false}), async (req, res) => {
   const tclass=req.body.tclass;  
   const teacher=req.body.teacher;  
 	try {

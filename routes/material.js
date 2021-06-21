@@ -3,7 +3,7 @@ var router = express.Router();
 const materialModel = require("../models/material");
 const materialFileModel = require("../models/material_files");
 const courseLevelModel = require("../models/course_level");
-
+const passport = require('passport');
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -25,7 +25,7 @@ const courseLevelModel = require("../models/course_level");
 
 //teacher add new material data
 
-router.post('/', (req, res) => {
+router.post('/', passport.authenticate('jwt', { session : false}), (req, res) => {
    
   const   courseLevel=req.body.courseLevel;
   const   teacher=req.body.teacher;
@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
 
 //upload material file
 
-router.post('/matrialFile', (req, res) => {
+router.post('/matrialFile',  passport.authenticate('jwt', { session : false}),(req, res) => {
    
   const   material=req.body.material;
   const   materialFile=req.body.materialFile;
