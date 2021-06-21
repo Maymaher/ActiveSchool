@@ -4,7 +4,7 @@ const userModel = require("../models/user");
 const schedual_couseModel = require("../models/courses_schedual");
 const schedualModel = require("../models/schedual");
 const parentModel = require("../models/parent");
-
+const passport = require('passport');
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -12,7 +12,7 @@ const parentModel = require("../models/parent");
  
 
 //get schedual
-router.get('/schedual', (req, res) => {
+router.get('/schedual',passport.authenticate('jwt', { session : false}),  (req, res) => {
     console.log('list schedual')
     schedual_couseModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
@@ -25,7 +25,7 @@ router.get('/schedual', (req, res) => {
  
 
 //get all days
-  router.get('/days', (req, res) => {
+  router.get('/days',passport.authenticate('jwt', { session : false}),  (req, res) => {
     console.log('list days')
     schedualModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
@@ -35,7 +35,7 @@ router.get('/schedual', (req, res) => {
   
   })
   //add days on schedual
-router.post('/schedual', (req, res) => {
+router.post('/schedual', passport.authenticate('jwt', { session : false}), (req, res) => {
   const day=req.body.day;
   console.log(req.body) ///
   const userData = req.body
@@ -59,7 +59,7 @@ router.post('/schedual', (req, res) => {
 
   //add courses on schedual
 
-router.post('/courses ', (req, res) => {
+router.post('/courses ',passport.authenticate('jwt', { session : false}),  (req, res) => {
     const courses=req.body.courses;
     const day=req.body.day;
     console.log(req.body) ///
@@ -82,7 +82,7 @@ router.post('/courses ', (req, res) => {
 })
 
 //add student info
-router.post('/', (req, res) => {
+router.post('/',passport.authenticate('jwt', { session : false}),  (req, res) => {
     const name=req.body.name;
     const email=req.body.email;
     const password=req.body.password;
@@ -123,7 +123,7 @@ router.post('/', (req, res) => {
 
 })
     //get All student
-    router.get('/student', (req, res) => {
+    router.get('/student', passport.authenticate('jwt', { session : false}), (req, res) => {
         console.log('list student')
         userModel.find({},(err,data)=>{
           if(!err) return res.json(data) 
@@ -136,7 +136,7 @@ router.post('/', (req, res) => {
 
   //add courses on schedual
 
-  router.post('/courses ', (req, res) => {
+  router.post('/courses ', passport.authenticate('jwt', { session : false}), (req, res) => {
     const courses=req.body.courses;
     const day=req.body.day;
     console.log(req.body) ///
@@ -163,7 +163,7 @@ router.post('/', (req, res) => {
  
  
  //add student-parent info
-router.post('/parent', (req, res) => {
+router.post('/parent', passport.authenticate('jwt', { session : false}), (req, res) => {
     const name=req.body.name;
     const email=req.body.email;
     const password=req.body.password;
@@ -202,7 +202,7 @@ router.post('/parent', (req, res) => {
 })
 
 //get student parent info
-router.get('/parent/:id', (req, res) => {
+router.get('/parent/:id', passport.authenticate('jwt', { session : false}), (req, res) => {
     console.log('list parent')
     parentModel.find({student:req.params.id},(err,data)=>{
       if(!err) return res.json(data) 

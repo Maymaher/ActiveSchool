@@ -33,7 +33,7 @@ var examRouter = require('./routes/exam');
 var examAnswerRouter = require('./routes/exam_answer');
 
 var matrialRouter = require('./routes/material');
-var api = require('./routes/api');
+var api = require('./routes/user_auth');
 
 
 var app = express();
@@ -70,8 +70,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/books', express.static(path.join(__dirname, 'dist')));
+
+
 app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 app.use('/api', api);
 
 
@@ -100,7 +105,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
   .catch((err) => console.error(err));
  
  mongoose.set("useFindAndModify", false);
-const port = 3200;
+const port = 3000;
 app.listen(port, function () {
   console.log(`express web server listening on port ${port}`);
 });

@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const HomeWork = require("../models/homework");
 const HomeworkAnswers = require("../models/homework_answer");
-
+const passport = require('passport');
 // Get all homeworks
-router.get("/", async (req, res) => {
+router.get("/",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	const homeworks = await HomeWork.find().populate("course")
 	res.send(homeworks)
 })
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
 })
 
 //Get individual HomeWork
-router.get("/:id", async (req, res) => {
+router.get("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
     try {
 
 	const homework = await HomeWork.findOne({ _id: req.params.id }).populate("course")
@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
 })
 
 //Update individual HomeWork
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
 	try {
 		const homework = await HomeWork.findOne({ _id: req.params.id })
 
@@ -55,7 +55,7 @@ router.patch("/:id", async (req, res) => {
 
 
 //Delete individual HomeWork
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	try {
 		await HomeWork.deleteOne({ _id: req.params.id })
 		res.status(204).send()
@@ -66,7 +66,7 @@ router.delete("/:id", async (req, res) => {
 })
 
 //Get Answers of one homework
-router.get("/:id/answers", async (req, res) => {
+router.get("/:id/answers", passport.authenticate('jwt', { session : false}),async (req, res) => {
     try {
 
 	const homework_answers = await HomeworkAnswers.find({ homework: req.params.id }).populate("student").populate("homework")
@@ -79,7 +79,7 @@ router.get("/:id/answers", async (req, res) => {
 })
 
 //create homework answer
-router.post("/:id/answers", async (req, res) => {
+router.post("/:id/answers",passport.authenticate('jwt', { session : false}), async (req, res) => {
     const homework_answer = new HomeWork({
       answer: req.body.answer,
       homework: req.params.id,

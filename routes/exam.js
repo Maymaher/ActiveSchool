@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const examModel = require("../models/exam");
-
+const passport = require('passport');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -9,7 +9,7 @@ const examModel = require("../models/exam");
 // });
 
 //GET all teacher exams
-router.get('/:id', (req, res) => {
+router.get('/:id', passport.authenticate('jwt', { session : false}), (req, res) => {
     console.log('list all exams')
     examModel.find({teacher:req.params.id},(err,data)=>{
       if(!err) return res.json(data) 
@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 
 //teacher add new exam data
 
-router.post('/', (req, res) => {
+router.post('/',  passport.authenticate('jwt', { session : false}),(req, res) => {
    
   const   course=req.body.course;
   const   level=req.body.level;
@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
 
 //get exam of specific level
 
-router.get('/studentExam/:id', (req, res) => {
+router.get('/studentExam/:id', passport.authenticate('jwt', { session : false}), (req, res) => {
     console.log('list all exams')
     examModel.find({level:req.params.id,date:Date()},(err,data)=>{
       if(!err) return res.json(data) 

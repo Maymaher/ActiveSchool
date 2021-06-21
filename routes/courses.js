@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const Course = require("../models/course");
+const passport = require('passport');
 
 
 // Get all courses
-router.get("/", async (req, res) => {
+router.get("/", passport.authenticate('jwt', { session : false}),async (req, res) => {
 	const courses = await Course.find().populate("level")
 	res.send(courses)
 })
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
 })
 
 //Get individual Course
-router.get("/:id", async (req, res) => {
+router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
     try {
 
 	const course = await Course.findOne({ _id: req.params.id }).populate("level")
@@ -34,7 +35,7 @@ router.get("/:id", async (req, res) => {
 })
 
 //Update individual Course
-router.patch("/:id", async (req, res) => {
+router.patch("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	try {
 		const course = await Course.findOne({ _id: req.params.id })
 
@@ -60,7 +61,7 @@ router.patch("/:id", async (req, res) => {
 
 
 //Delete individual Course
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	try {
 		await Course.deleteOne({ _id: req.params.id })
 		res.status(204).send()

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const levelModel = require("../models/level");
 const semmesterModel = require("../models/semmester");
-
+const passport = require('passport');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -10,7 +10,7 @@ const semmesterModel = require("../models/semmester");
 // });
 
 //GET levels
-router.get('/level', (req, res) => {
+router.get('/level',passport.authenticate('jwt', { session : false}), (req, res) => {
     console.log('list level')
     levelModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
@@ -22,7 +22,7 @@ router.get('/level', (req, res) => {
 
  
 //Add level
-router.post('/', (req, res) => {
+router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => {
   const   number=req.body.number;
 
   console.log(req.body) ///
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 
 
 //Add semester
-router.post('/semester', (req, res) => {
+router.post('/semester', passport.authenticate('jwt', { session : false}),(req, res) => {
   const semmester=req.body.semmester;
   const level=req.body.level;
 
