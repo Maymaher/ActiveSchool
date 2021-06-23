@@ -62,7 +62,8 @@ router.post('/login', (req, res, next) => {
         let returnUser = {
           name: user.name,
           email: user.email,
-          id: user._id
+          id: user._id,
+          type:user.type
         }
 
         //Send the response back
@@ -84,7 +85,8 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    address: req.body.address
+    address: req.body.address,
+    type:req.body.type
   });
 
   newUser.save((err, user) => {
