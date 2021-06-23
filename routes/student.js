@@ -215,13 +215,16 @@ router.get('/parent/:id', passport.authenticate('jwt', { session : false}), (req
   
 
       //get student with id  authontication
-// router.get('/student', (req, res) => {
-//     console.log('list student')
-//     userModel.find({_id},(err,data)=>{
-//       if(!err) return res.json(data) 
-//       res.send("erro cannot list student") 
+      router.get('/ProfileInfo/:id', (req, res) => {
+        console.log('list ProfileInfo')
+        // const token =req.header('x-auth');
+        // console.log(token);
+        userModel.find({_id:req.params.id},(err,data)=>{
+          if(!err) return res.json(data) 
+          res.send("erro cannot list ProfileInfo") 
+          
+          })
       
-//       })
-  
-//   })
+      })
+    
 module.exports = router;
