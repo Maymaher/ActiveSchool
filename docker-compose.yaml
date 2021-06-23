@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
     client:
-      build: ../ActiveSchool-ClientSide
+      build: ../CI-CD-Frontend
       ports:
         - "4200:4200"
         
