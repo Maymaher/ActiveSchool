@@ -63,7 +63,9 @@ router.post('/login', (req, res, next) => {
           name: user.name,
           email: user.email,
           id: user._id,
-          type:user.type
+          type: user.type,
+          address: user.address,
+          avatar: user.avatar
         }
 
         //Send the response back
