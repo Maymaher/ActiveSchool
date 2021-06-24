@@ -123,9 +123,9 @@ router.post('/',passport.authenticate('jwt', { session : false}),  (req, res) =>
 
 })
     //get All student
-    router.get('/student', passport.authenticate('jwt', { session : false}), (req, res) => {
+    router.get('/student',passport.authenticate('jwt', { session : false}),  (req, res) => {
         console.log('list student')
-        userModel.find({},(err,data)=>{
+        userModel.find({type:"student"},(err,data)=>{
           if(!err) return res.json(data) 
           res.send("erro cannot list student") 
           
