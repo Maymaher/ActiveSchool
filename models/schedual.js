@@ -2,8 +2,9 @@ const mongoose=require('mongoose');
 const validator = require("validator")
 
 schedualschema=new mongoose.Schema({
+ 
 
-day:{type:String,required:true,default:Date()},
+class: {type:mongoose.Schema.Types.ObjectId, ref:'Class', required:false},
 
   
 

@@ -87,7 +87,10 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    address: req.body.address
+    address: req.body.address,
+    type: req.body.type,
+    level: req.body.level
+
   });
 
   newUser.save((err, user) => {
