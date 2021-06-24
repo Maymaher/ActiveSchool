@@ -3,6 +3,8 @@ version: '3.7'
 services:
     client:
       build: ../CI-CD-Frontend
+      image: frontend-image
+      container_name: frontend-container
       ports:
         - "80:80"
         
