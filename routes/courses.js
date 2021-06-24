@@ -5,7 +5,7 @@ const passport = require('passport');
 
 
 // Get all courses
-router.get("/", passport.authenticate('jwt', { session : false}),async (req, res) => {
+router.get("/", async (req, res) => {
 	const courses = await Course.find().populate("level")
 	res.send(courses)
 })
