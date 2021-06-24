@@ -31,6 +31,7 @@ var levelRouter = require('./routes/level');
 var homeworkRouter = require('./routes/homework');
 var examRouter = require('./routes/exam');
 var examAnswerRouter = require('./routes/exam_answer');
+var teacherRouter = require('./routes/teacher');
 
 var matrialRouter = require('./routes/material');
 var api = require('./routes/user_auth');
@@ -59,7 +60,7 @@ app.use('/student', studentRouter);
 app.use('/class', classRouter);
 app.use('/level', levelRouter);
 app.use('/homeworks',homeworkRouter);
-
+app.use('/teacher',teacherRouter);
 
 app.use('/exam', examRouter);
 app.use('/examAnswer', examAnswerRouter);
