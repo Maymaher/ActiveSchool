@@ -50,6 +50,28 @@ router.get("/", async (req, res) => {
 })
 
 
+
+//get teacher levels
+router.get("/:id/levels", async (req, res) => {
+	const courses = await TeacherCourseModel.find({teacher:req.params.id})
+	let arr=[]
+	for (course of courses)
+	{
+		arr.push(course.course._id)
+	}
+	const levels=await CourseModel.find({_id:{$in:arr}}).populate("level")
+	console.log(arr)
+
+	res.send(levels)
+})
+
+//Get All Teachers
+router.get("/", async (req, res) => {
+	const teachers = await userModel.find({type:'teacher'})
+	res.send(teachers)
+})
+
+
 //Delete specific course from individual teacher
 router.delete("/:id/courses", async (req, res) => {
 	try {

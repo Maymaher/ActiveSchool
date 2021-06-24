@@ -123,9 +123,9 @@ router.post('/',passport.authenticate('jwt', { session : false}),  (req, res) =>
 
 })
     //get All student
-    router.get('/student', passport.authenticate('jwt', { session : false}), (req, res) => {
+    router.get('/student',(req, res) => {
         console.log('list student')
-        userModel.find({},(err,data)=>{
+        userModel.find({type:"student"},(err,data)=>{
           if(!err) return res.json(data) 
           res.send("erro cannot list student") 
           
@@ -211,6 +211,61 @@ router.get('/parent/:id', passport.authenticate('jwt', { session : false}), (req
       })
   
   })
+
+
+//delete user
+
+router.delete("/:id", async (req, res) => {
+	try {
+		
+		await userModel.deleteOne({ _id: req.params.id })
+		res.status(204).send()
+	} catch {
+		res.status(404)
+		res.send({ error: "user doesn't exist!" })
+	}
+})
+
+
+//Update user data
+router.patch("/:id", async (req, res) => {
+	try {
+		const user = await userModel.findOne({ _id: req.params.id })
+
+		if (req.body.name) {
+			user.name = req.body.name
+		}
+
+		if (req.body.email) {
+		   user.email = req.body.email
+		}
+
+		if (req.body.password) {
+			user.password = req.body.password
+		 }
+
+     if (req.body.address) {
+			user.address = req.body.address
+		 }
+
+     if (req.body.avatar) {
+			user.avatar = req.body.avatar
+		 }
+     if (req.body.class) {
+			user.class = req.body.class
+		 }
+     if (req.body.level) {
+			user.level = req.body.level
+		 }
+
+
+		await user.save()
+		res.send(user)
+	} catch {
+		res.status(404)
+		res.send({ error: "user doesn't exist!" })
+	}
+})
 
   
 
