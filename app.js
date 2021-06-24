@@ -60,12 +60,14 @@ app.use('/student', studentRouter);
 app.use('/class', classRouter);
 app.use('/level', levelRouter);
 app.use('/homeworks',homeworkRouter);
-app.use('/teacher',teacherRouter);
+
 
 app.use('/exam', examRouter);
 app.use('/examAnswer', examAnswerRouter);
 app.use('/material', matrialRouter);
 app.use('/teacherclass', teacherClassRouter);
+app.use('/teacher',teacherRouter);
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -98,54 +100,19 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// mongoose options
-const options = {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  // autoIndex: false,
-  // poolSize: 10,
-  // bufferMaxEntries: 0
-};
+//Db Conection
 
-// mongodb environment variables
-const {
-  MONGO_HOSTNAME,
-  MONGO_DB,
-  MONGO_PORT
-} = process.env;
-
-const dbConnectionURL = {
-  'LOCALURL': `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`
-};
-mongoose.connect(dbConnectionURL.LOCALURL, options);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Mongodb Connection Error:' + dbConnectionURL.LOCALURL));
-db.once('open', () => {
-   // we're connected !
-   console.log('Mongodb Connection Successful');
-});
-
-
-
-// const MONGO_URL = "mongodb://localhost:27017/ActiveSchoolDB";
-// mongoose.connect(
-//   MONGO_URL,
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   },
-//   (err) => {
-//     if (err) return console.error(err);
-//     console.log("connected to mongoose");
-//   }
-// );
-mongoose.set("useFindAndModify", false);
-const port = 8080;
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection succesful'))
+  .catch((err) => console.error(err));
+ 
+ mongoose.set("useFindAndModify", false);
+const port = 3200;
 app.listen(port, function () {
   console.log(`express web server listening on port ${port}`);
 });
+
 
 
 module.exports = app;
