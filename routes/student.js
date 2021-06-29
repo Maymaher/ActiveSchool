@@ -376,7 +376,7 @@ router.post('/',passport.authenticate('jwt', { session : false}),  (req, res) =>
           if(!err) return res.json(data) 
           res.send("erro cannot list student") 
           
-          })
+          }).populate("level").populate("class")
       
       })
 
@@ -462,7 +462,7 @@ router.get('/parent/:id', passport.authenticate('jwt', { session : false}), (req
 
 //delete user
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	try {
 		
 		await userModel.deleteOne({ _id: req.params.id })
@@ -474,13 +474,35 @@ router.delete("/:id", async (req, res) => {
 })
 
 
+//get user by id
+router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
+  try {
+
+const user = await userModel.findOne({ _id: req.params.id })
+res.send(user)
+  }
+  catch {
+  res.status(404)
+  res.send({ error: "Course doesn't exist!" })
+}
+})
+
+
 //Update user data
 router.patch("/:id", async (req, res) => {
 	try {
 		const user = await userModel.findOne({ _id: req.params.id })
 
-		if (req.body.name) {
-			user.name = req.body.name
+		if (req.body.firstName) {
+			user.firstName = req.body.firstName
+		}
+
+    if (req.body.lastName) {
+			user.lastName = req.body.lastName
+		}
+
+    if (req.body.phone) {
+			user.phone = req.body.phone
 		}
 
 		if (req.body.email) {
@@ -507,7 +529,7 @@ router.patch("/:id", async (req, res) => {
 
 
 		await user.save()
-		res.send(user)
+		res.send({user,success:true})
 	} catch {
 		res.status(404)
 		res.send({ error: "user doesn't exist!" })
