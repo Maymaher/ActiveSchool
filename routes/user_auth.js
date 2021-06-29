@@ -89,7 +89,8 @@ router.post('/register', (req, res, next) => {
     password: req.body.password,
     address: req.body.address,
     type: req.body.type,
-    level: req.body.level
+    level: req.body.level,
+    status:false
 
   });
 
