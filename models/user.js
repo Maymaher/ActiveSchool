@@ -7,6 +7,7 @@ name:{type:String,required:true},
 email:{type:String,reuired:true, unique:true, validate:{validator: validator.isEmail}},
 password:{type:String,required:true,minlength:8},
 avatar:{type:String,required:false,default:"default.jpg"},
+status:{type:Boolean,default:false},
 type:{type:String,
     enum : ['student','admin','teacher','parent'],
     default: 'student'

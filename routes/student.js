@@ -8,6 +8,7 @@ const SchedularTusday = require("../models/schedular-tusday");
 const SchedularWensday = require("../models/schedular-wensday");
 const SchedularThrisday = require("../models/schedular-thrisday");
 const schedual_couseModel = require("../models/schedular-wensday");
+const Attendence = require("../models/attendence");
 
 const schedualModel = require("../models/schedual");
 const parentModel = require("../models/parent");
@@ -527,5 +528,72 @@ router.patch("/:id", async (req, res) => {
           })
       
       })
+
+
+      ///attendence
+
+      router.post('/attendence', (req, res) => {
+        const status=req.body.status;
+        const date=req.body.date;
+        const student=req.body.student;
+
+
+ 
+        console.log(req.body) ///
+        const userData = req.body
+        const userInstance = new Attendence({
+          status,
+          date,
+          student
+      
+      
+        })
+        console.log(userInstance);
+        
+      
+      
+        userInstance.save((err,userDoc)=>{
+            if(!err) return res.json(userDoc)
+            console.log(err);
+            res.send("error occured while saving")
+        })
+    })
     
+    router.get('/attendence/:id', (req, res) => {
+      console.log('list student attendence')
+      // const token =req.header('x-auth');
+      // console.log(token);
+      Attendence.find({student:req.params.id},(err,data)=>{
+        if(!err) return res.json(data) 
+        res.send("erro cannot list student attendence") 
+        
+        })
+    
+    })
+
+//user login status
+
+router.patch("/studenStatuse/:id", async (req, res) => {
+	try {
+    console.log();
+		const user = await userModel.findOne({ _id: req.params.id })
+
+		
+     if (req.body) {
+       console.log(req.body.status);
+			user.status = req.body.status;
+      console.log("mmm");
+
+		 }
+
+     
+		await user.save()
+		res.send(user)
+	} catch {
+		res.status(404)
+		res.send({ error: "user doesn't exist!" })
+	}
+})
+
+  
 module.exports = router;
