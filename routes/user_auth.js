@@ -60,12 +60,16 @@ router.post('/login', (req, res, next) => {
         //User Is Valid
         //This object is just used to remove the password from the retuned fields
         let returnUser = {
-          name: user.name,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
+          phone: user.phone,
           id: user._id,
           type: user.type,
           address: user.address,
-          avatar: user.avatar
+          avatar: user.avatar,
+          level: user.level,
+          class: user.class
         }
 
         //Send the response back
@@ -84,12 +88,15 @@ router.post('/login', (req, res, next) => {
 //Registeration
 router.post('/register', (req, res, next) => {
   let newUser = new User({
-    name: req.body.name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
+    phone: req.body.phone,
     password: req.body.password,
     address: req.body.address,
     type: req.body.type,
-    level: req.body.level
+    level: req.body.level,
+    class: req.body.class
 
   });
 
@@ -108,68 +115,5 @@ router.post('/register', (req, res, next) => {
   });
 });
 
-// router.post('/signup', function(req, res) {
-//   if (!req.body.username || !req.body.password) {
-//     res.json({success: false, msg: 'Please pass username and password.'});
-//   } else {
-//     var newUser = new User({
-//       email: req.body.email,
-//       password: req.body.password,
-//       name: req.body.name,
-//       address: req.body.address
-//     });
-//     // save the user
-//     newUser.save(function(err) {
-//       if (err) {
-//         return res.json({success: false, msg: 'Username already exists.'});
-//       }
-//       res.json({success: true, msg: 'Successful created new user.'});
-//     });
-//   }
-// });
-
-
-// ///login
-// router.post('/signin', function(req, res) {
-//   User.findOne({
-//     email: req.body.email,
-//     password: req.body.password
-//   }, function(err, user) {
-//     if (err) throw err;
-
-//     if (!user) {
-//       res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
-//     } else {
-//       // check if password matches
-//       user.comparePassword(req.body.password, function (err, isMatch) {
-//         if (isMatch && !err) {
-//           // if user is found and password is right create a token
-//           var token = jwt.sign(user.toJSON(), process.env.SECRET);
-//           // return the information including token as JSON
-//           res.json({success: true, token: 'JWT ' + token});
-//         } else {
-//           res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-//         }
-//       });
-//     }
-//   });
-// });
-
-
-// //token
-
-
-// getToken = function (headers) {
-//   if (headers && headers.authorization) {
-//     var parted = headers.authorization.split(' ');
-//     if (parted.length === 2) {
-//       return parted[1];
-//     } else {
-//       return null;
-//     }
-//   } else {
-//     return null;
-//   }
-// };
 
 module.exports = router;
