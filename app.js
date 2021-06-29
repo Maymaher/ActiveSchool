@@ -31,7 +31,6 @@ var levelRouter = require('./routes/level');
 var homeworkRouter = require('./routes/homework');
 var examRouter = require('./routes/exam');
 var examAnswerRouter = require('./routes/exam_answer');
-var teacherRouter = require('./routes/teacher');
 
 var matrialRouter = require('./routes/material');
 var api = require('./routes/user_auth');
@@ -108,7 +107,7 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
   .catch((err) => console.error(err));
  
  mongoose.set("useFindAndModify", false);
-const port = 3200;
+const port = 3000;
 app.listen(port, function () {
   console.log(`express web server listening on port ${port}`);
 });
@@ -271,4 +270,5 @@ module.exports = app;
 // });
 
 
+// module.exports = app;
 // module.exports = app;

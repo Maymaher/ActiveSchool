@@ -10,6 +10,7 @@ password:{type:String,required:true,minlength:8},
 phone:{type:String,required:true,length:11},
 
 avatar:{type:String,required:false,default:"default.jpg"},
+status:{type:Boolean,default:false},
 type:{type:String,
     enum : ['student','admin','teacher','parent'],
     default: 'student'

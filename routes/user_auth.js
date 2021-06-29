@@ -96,7 +96,8 @@ router.post('/register', (req, res, next) => {
     address: req.body.address,
     type: req.body.type,
     level: req.body.level,
-    class: req.body.class
+    class: req.body.class,
+    status:false
 
   });
 
