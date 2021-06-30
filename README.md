@@ -7,9 +7,11 @@ http://3.137.144.158/.</br>
 ## Getting up and running
 To get the Node server running locally: <br/>
   • Clone this repo <br/>
-  •	cd ActiveSchool <br/>
-  •	npm install to install all required dependencies  <br/>
-  •	npm start to start the local server   <br/>
+  • run	cd ActiveSchool <br/>
+  •	To install all required dependencies:  <br/>
+    run npm install <br/>
+  • To start the local server:   <br/>
+    run	npm start <br/>
   •	copy the link  http://localhost:3200 in the browser to see the server running. <br/>
 Now the server is waiting the clientside to run. <br/>
 Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide). <br/>
@@ -19,5 +21,14 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   •	Mongodb <br/>
   •	Express <br/>
    <br/>
+## Dockerize Express and Mongodb
+  • Create Dockerfile to the root serverside folder.<br/>
+  ![](img/Dockerfile.png) <br/>
+  • Create docker-compose.yml file to run Express together with mongodb. <br/>
+  ![](img/Dockercompose.png) <br/>
+  • To build the images :<br/>
+    run docker-compose build <br/>
+  • To run the containers:<br/>
+    run docker-compose up <br/>
 
 
