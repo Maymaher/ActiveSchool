@@ -14,11 +14,11 @@ To get the Node server running locally: </br>
   ```sh
   cd ActiveSchool 
   ```
-  •	Install all required dependencies
+  Install all required dependencies
   ```sh
   run npm install
   ```
-  • Start the local server
+  Start the local server
   ```sh
   run npm start
   ```
@@ -28,8 +28,9 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
  
 ## Built With
   •	Nodejs  </br> 
-  •	Mongodb </br> 
   •	Express </br> 
+  •	Mongodb </br> 
+  
    <br/>
 ## Dockerize Express and Mongodb
 <b>Backend Dockerfile and Docker compose file<b></br> 
