@@ -37,11 +37,11 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   ![](img/docker&compose.png) </br> 
   </br> 
   
-  • To build the images 
+  • Build the images 
   ```sh
   docker-compose build 
   ```
-  • To run the containers 
+  • Run the containers 
   ```sh
   docker-compose up  
   ```
