@@ -50,7 +50,7 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   ```
   
   ## Jenkins in CI/CD
-  We used Jenkins to make continuous integration and continuous deployment
+  We used Jenkins to make continuous integration and continuous deployment pipeline 
   ![](img/pipeline.png) </br> 
   
 
