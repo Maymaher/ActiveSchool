@@ -6,23 +6,23 @@ http://3.137.144.158/.</br>
 </br>
 ## Getting up and running
 To get the Node server running locally: </br> 
-  • Clone this repo
+  Clone this repository
   ```sh
   git clone https://github.com/Maymaher/ActiveSchool.git
   ```
-  • Change the directory to	ActiveSchool  
+  Change the directory to	ActiveSchool  
   ```sh
   cd ActiveSchool 
   ```
-  •	To install all required dependencies
+  •	Install all required dependencies
   ```sh
   run npm install
   ```
-  • To start the local server
+  • Start the local server
   ```sh
   run npm start
   ```
-  •	copy the link  http://localhost:3200 in the browser to see the server running. </br> 
+  Open http://localhost:3200 in your browser to see the server running. </br> 
 Now the server is waiting the clientside to run. </br> 
 Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide). </br> 
  
