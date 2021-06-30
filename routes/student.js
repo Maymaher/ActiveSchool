@@ -631,5 +631,21 @@ router.patch("/studenStatuse/:id", async (req, res) => {
 	}
 })
 
+
+
+
+///get Student Grade on the exame
+
+router.get('/grade/:id', (req, res) => {
+  console.log('list student attendence')
+  // const token =req.header('x-auth');
+  // console.log(token);
+  Attendence.find({student:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list student attendence") 
+    
+    })
+
+})
   
 module.exports = router;
