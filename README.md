@@ -1,4 +1,4 @@
-# Welcome to ourActiveSchool application server
+# Welcome to our ActiveSchool application serverside
 ## To visit our website follow the link below:
 http://3.137.144.158/.</br> 
 </br>
