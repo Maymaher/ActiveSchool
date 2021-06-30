@@ -19,12 +19,12 @@ router.get('/', (req, res) => {
 
 //student upload exam answer and get student data from auth
 
-router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => {
+router.post('/', (req, res) => {
 
    
   const   answer=req.body.answer;
   const   exam=req.body.exam;
- const student=req.body.student,
+ const student=req.body.student;
 const date=req.body.date;
 const grade =req.body.grade;
 
