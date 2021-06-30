@@ -632,11 +632,6 @@ router.patch("/studenStatuse/:id", async (req, res) => {
 	}
 })
 
-
-
-
-///get Student Grade on the exame
-
 router.get('/grade/:id', (req, res) => {
   console.log('list student grade')
   // const token =req.header('x-auth');
@@ -646,6 +641,21 @@ router.get('/grade/:id', (req, res) => {
     res.send("erro cannot list student grade") 
     
     }).pipulate("Exam");
+
+})
+
+
+///get Student Grade on the exame
+
+router.get('/exam/:id', (req, res) => {
+  console.log('list level exam')
+  // const token =req.header('x-auth');
+  // console.log(token);
+  Exam.find({level:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list exams ") 
+    
+    }).pipulate("Level");
 
 })
   
