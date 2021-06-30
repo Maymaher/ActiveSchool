@@ -3,10 +3,14 @@ const validator = require("validator")
 const bcrypt = require('bcryptjs');
 userschema=new mongoose.Schema({
 
-name:{type:String,required:true},
+firstName:{type:String,required:true},
+lastName:{type:String,required:true},
 email:{type:String,reuired:true, unique:true, validate:{validator: validator.isEmail}},
 password:{type:String,required:true,minlength:8},
+phone:{type:String,required:true,length:11},
+
 avatar:{type:String,required:false,default:"default.jpg"},
+status:{type:Boolean,default:false},
 type:{type:String,
     enum : ['student','admin','teacher','parent'],
     default: 'student'
