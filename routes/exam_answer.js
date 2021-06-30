@@ -6,7 +6,7 @@ const passport = require('passport');
 
 
 //GET all students exams
-router.get('/', passport.authenticate('jwt', { session : false}),(req, res) => {
+router.get('/', (req, res) => {
     console.log('list all exams')
     examAnswerModel.find({},(err,data)=>{
       if(!err) return res.json(data) 
