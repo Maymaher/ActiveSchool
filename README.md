@@ -13,8 +13,8 @@ To get the Node server running locally:
   •	npm start to start the local server   <br/>
   •	copy the link  http://localhost:3200 in the browser to see the server running. <br/>
 Now the server is waiting the clientside to run. <br/>
-Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide)
- <br/>
+Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide). <br/>
+ 
 ## Built With
   •	Nodejs  <br/>
   •	Mongodb <br/>
