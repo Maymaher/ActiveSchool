@@ -24,6 +24,9 @@ router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => 
    
   const   answer=req.body.answer;
   const   exam=req.body.exam;
+ const student=req.body.student,
+const date=req.body.date;
+const grade =req.body.grade;
 
 
   console.log(req.body) ///
@@ -31,7 +34,11 @@ router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => 
   const userInstance = new  examAnswerModel ({
 
     answer,
-    exam
+    exam,
+    student,
+    date,
+    grade
+
    
 
   })
