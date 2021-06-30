@@ -4,6 +4,13 @@ http://3.137.144.158/</br>
 </br>
 ![](img/loginPage.png) 
 </br>
+
+## ⛏️ Built Using
+  - [MongoDB](https://www.mongodb.com/) - Database
+  - [Express](https://expressjs.com/) - Server Framework
+  - [NodeJs](https://nodejs.org/en/) - Server Environment
+  
+   
 ## 🏁 Getting Started
 To get the Node server running locally: </br> 
   Clone this repository
@@ -26,12 +33,6 @@ To get the Node server running locally: </br>
 Now the server is waiting the clientside to run. </br> 
 Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide). </br> 
  
-## ⛏️ Built Using
-  - [MongoDB](https://www.mongodb.com/) - Database
-  - [Express](https://expressjs.com/) - Server Framework
-  - [NodeJs](https://nodejs.org/en/) - Server Environment
-  
-   <br/>
    
 ## Dockerize Express and Mongodb
 <b>Backend Dockerfile and Docker compose file<b></br> 
@@ -47,4 +48,9 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   ```sh
   docker-compose up  
   ```
+  
+  ## Jenkins in CI/CD
+  We used Jenkins to make continuous integration and continuous deployment
+  ![](img/pipeline.png) </br> 
+  
 
