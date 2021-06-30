@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const courseseModel = require("../models/course");
 const userModel = require("../models/user");
 const SchedularSturday = require("../models/schedular-Sturday");
 const SchedularSunday = require("../models/schedular-sunday");
@@ -30,6 +31,19 @@ router.get('/schedual/:id', (req, res) => {
   
   })
 
+
+
+  // get courses
+
+  router.get('/courses/:id', (req, res) => {
+    console.log('list level courses ')
+    courseseModel.find({level:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list level courses") 
+      
+      })
+  
+  })
   // router.get('/scheduall/:id', (req, res) => {
   //   console.log('list schedual')
   //   schedualModel.find({_id:req.params.id},(err,data)=>{
@@ -60,7 +74,7 @@ router.get('/schedual/:id', (req, res) => {
       if(!err) return res.json(data) 
       res.send("erro cannot list sturday Courses") 
       
-      })
+      }).populate("Schedual");
   
   })
 

@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
 router.get("/:id/courses", passport.authenticate('jwt', { session : false}), async (req, res) => {
     try {
 
-	const courses = await TeacherCourseModel.find({ teacher: req.params.id }).populate('teacher').populate('course')
+	const courses = await TeacherCourseModel.find({ teacher: req.params.id }).populate('teacher').populate('course');
 	res.json(courses)
     }
     catch {
