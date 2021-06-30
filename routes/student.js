@@ -10,7 +10,8 @@ const SchedularWensday = require("../models/schedular-wensday");
 const SchedularThrisday = require("../models/schedular-thrisday");
 const schedual_couseModel = require("../models/schedular-wensday");
 const Attendence = require("../models/attendence");
-
+const ExamAnswer = require("../models/exam_answer");
+const Exam = require("../models/exam");
 const schedualModel = require("../models/schedual");
 const parentModel = require("../models/parent");
 const passport = require('passport');
@@ -637,14 +638,14 @@ router.patch("/studenStatuse/:id", async (req, res) => {
 ///get Student Grade on the exame
 
 router.get('/grade/:id', (req, res) => {
-  console.log('list student attendence')
+  console.log('list student grade')
   // const token =req.header('x-auth');
   // console.log(token);
-  Attendence.find({student:req.params.id},(err,data)=>{
+  ExamAnswer.find({student:req.params.id},(err,data)=>{
     if(!err) return res.json(data) 
-    res.send("erro cannot list student attendence") 
+    res.send("erro cannot list student grade") 
     
-    })
+    }).pipulate("Exam");
 
 })
   
