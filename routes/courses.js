@@ -31,15 +31,15 @@ router.post("/", async (req, res) => {
 
 //Get individual Course
 router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
-    try {
+    // try {
 
 	const course = await Course.findOne({ _id: req.params.id }).populate("level")
-	res.send({course,success:true})
-    }
-    catch {
-		res.status(404)
-		res.send({ error: "Course doesn't exist!" })
-	}
+	res.send(course)
+    // }
+    // catch {
+	// 	res.status(404)
+	// 	res.send({ error: "Course doesn't exist!" })
+	// }
 })
 
 //Update individual Course
