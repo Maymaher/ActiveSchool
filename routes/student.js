@@ -640,7 +640,7 @@ router.get('/grade/:id', (req, res) => {
     if(!err) return res.json(data) 
     res.send("erro cannot list student grade") 
     
-    }).pipulate("Exam");
+    }).populate("Exam");
 
 })
 
@@ -655,7 +655,7 @@ router.get('/exam/:id', (req, res) => {
     if(!err) return res.json(data) 
     res.send("erro cannot list exams ") 
     
-    }).pipulate("Level");
+    }).populate("Level");
 
 })
   
