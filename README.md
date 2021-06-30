@@ -4,7 +4,7 @@ http://3.137.144.158/</br>
 </br>
 ![](img/loginPage.png) 
 </br>
-## Getting up and running
+## 🏁 Getting Started
 To get the Node server running locally: </br> 
   Clone this repository
   ```sh
@@ -26,10 +26,10 @@ To get the Node server running locally: </br>
 Now the server is waiting the clientside to run. </br> 
 Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-ClientSide). </br> 
  
-## Built With
-  •	Nodejs  </br> 
-  •	Express </br> 
-  •	Mongodb </br> 
+## ⛏️ Built Using
+  - [MongoDB](https://www.mongodb.com/) - Database
+  - [Express](https://expressjs.com/) - Server Framework
+  - [NodeJs](https://nodejs.org/en/) - Server Environment
   
    <br/>
    
