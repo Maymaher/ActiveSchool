@@ -37,6 +37,11 @@ var matrialRouter = require('./routes/material');
 var api = require('./routes/user_auth');
 
 
+
+var galleryRouter = require('./routes/files');
+var ExamAnswerUploadRouter = require('./routes/exam_answer_upload');
+
+
 var app = express();
 
 // view engine setup
@@ -51,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
+app.use('/public', express.static('public')); 
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -67,6 +73,8 @@ app.use('/examAnswer', examAnswerRouter);
 app.use('/material', matrialRouter);
 app.use('/teacherclass', teacherClassRouter);
 app.use('/teacher',teacherRouter);
+app.use('/gallery', galleryRouter);
+app.use('/examAnswerUpload',ExamAnswerUploadRouter);
 
 
 app.use(logger('dev'));
