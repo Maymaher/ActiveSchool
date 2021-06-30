@@ -20,14 +20,14 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   •	Express </br> 
    <br/>
 ## Dockerize Express and Mongodb
-  • Create Dockerfile to the root serverside folder.<br/>
-  <br/>
-  ![](img/Dockerfile.png) <br/>
-  <br/>
+  • Create Dockerfile to the root serverside folder.</br> 
+  </br> 
+  ![](img/Dockerfile.png) </br> 
+  </br> 
   • Create docker-compose.yml file to run Express together with mongodb. <br/>
-  ![](img/Dockercompose.png) <br/>
-  <br/>
-  • To build the images : run docker-compose build <br/>
-  • To run the containers: run docker-compose up <br/>
+  ![](img/Dockercompose.png) </br> 
+  </br> 
+  • To build the images : run docker-compose build </br> 
+  • To run the containers: run docker-compose up </br> 
 
 
