@@ -31,6 +31,6 @@ Download Clientside from this link (https://github.com/Maymaher/ActiveSchool-Cli
   • To build the images :<br/>
       run docker-compose build <br/>
   • To run the containers:<br/>
-      run docker-compose up <br/>
+     run docker-compose up <br/>
 
 
