@@ -105,6 +105,7 @@ var storage = multer.diskStorage({
     const answer = new ExamAnswer({
       exam: exam._id,
       answer: filename_answer,
+      student: req.params.studentId 
     })
     await answer.save()
     res.send(answer)
@@ -122,7 +123,7 @@ var upload = multer({storage: storage});
 
 
 //Upload Exam
-router.post('/:id',upload.single('file'), async function(req, res, next) {
+router.post('/:id/:studentId' ,upload.single('file'), async function(req, res, next) {
   if(!req.file ) {
       return res.status(500).send({ message: 'Upload fail'});
   } 
