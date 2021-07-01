@@ -23,7 +23,7 @@ router.get('/:id',  (req, res) => {
 
 //teacher add new exam data
 
-router.post('/',  passport.authenticate('jwt', { session : false}),(req, res) => {
+router.post('/',(req, res) => {
    
   const   course=req.body.course;
   const   level=req.body.level;
