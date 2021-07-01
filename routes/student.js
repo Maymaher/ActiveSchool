@@ -45,6 +45,16 @@ router.get('/schedual/:id', (req, res) => {
       })
   
   })
+
+  router.get('/coursesInfo/:id', (req, res) => {
+    console.log('list level courses ')
+    courseseModel.find({_id:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list level courses") 
+      
+      })
+  
+  })
   // router.get('/scheduall/:id', (req, res) => {
   //   console.log('list schedual')
   //   schedualModel.find({_id:req.params.id},(err,data)=>{
@@ -640,7 +650,7 @@ router.get('/grade/:id', (req, res) => {
     if(!err) return res.json(data) 
     res.send("erro cannot list student grade") 
     
-    }).populate("Exam");
+    }).populate("exam").populate("course");
 
 })
 
