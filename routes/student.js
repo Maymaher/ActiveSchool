@@ -572,7 +572,7 @@ router.patch("/:id", async (req, res) => {
           if(!err) return res.json(data) 
           res.send("erro cannot list ProfileInfo") 
           
-          })
+          }).populate("level").populate("class")
       
       })
 

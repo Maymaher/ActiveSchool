@@ -60,6 +60,10 @@ router.patch("/:id", async (req, res) => {
 			course.level = req.body.level
 		 }
 
+		 if (req.body.Zoomlink) {
+			course.Zoomlink = req.body.Zoomlink
+		 }
+
 		await course.save()
 		res.send({course,
 			success: true,})
