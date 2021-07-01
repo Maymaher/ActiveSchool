@@ -98,6 +98,7 @@ router.get("/:id/specificExam", async (req, res) => {
   try {
 
 const exam = await examModel.findOne({ _id: req.params.id }).populate("teacher").populate("course").populate("level")
+
 res.send(exam)
   }
   catch {

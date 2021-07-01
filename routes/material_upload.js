@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
-var Gallery = require('../models/exam');
 const Course = require("../models/course");
-var ExamAnswer = require("../models/exam_answer");
-var homework = require("../models/homework");
-var fs = require('fs');
+var material = require("../models/material");
+var materialFile = require("../models/material_files");
+
 
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './public/exams');
+      cb(null, './public/materials');
     },
     filename: (req, file, cb) => {
       console.log(file);
@@ -39,7 +38,7 @@ var storage = multer.diskStorage({
       }
 
       
-      cb(null, 'exam-' + Date.now() + '.' + filetype);
+      cb(null, 'material-' + Date.now() + '.' + filetype);
       
     }
 });
@@ -49,28 +48,32 @@ var upload = multer({storage: storage});
 
 
 
-//Upload Exam
-router.post('/homework',upload.single('file'), async function(req, res, next) {
+//Upload Material to Course
+router.post('/:id',upload.single('file'), async function(req, res, next) {
     if(!req.file ) {
         return res.status(500).send({ message: 'Upload fail'});
     } 
     
     else {
       
-        const course_level = await Course.findOne({ _id: req.body.course});
-       req.body.examFile = 'http://localhost:3200/public/exams/' + req.file.filename;
-       const exam = new Gallery({
-        examFile:  req.file.filename,
-        course: req.body.course,
-        from: req.body.from,
-        to:req.body.to,
-        teacher:req.body.teacher,
-        date:req.body.date,
-        level: course_level.level
+        
+       const material_file = new material({
+        teacher:  req.body.teacher,
+        course: req.params.id,
+        
 
       })
+
+      const material_file_upload = new materialFile({
+        materialFile:  req.file.filename,
+        material: material_file._id,
+        
+
+      })
+
       
-      await exam.save()
+      await material_file.save();
+      await material_file_upload.save();
       
         
           return res.send({ message: 'Upload success'});
@@ -88,23 +91,6 @@ router.post('/homework',upload.single('file'), async function(req, res, next) {
 
 
 
-//Get individual Course
-router.get("/",async (req, res) => {
-  
-  var filePath = './public/exams/exam-1624808330787.pdf'; 
-  
-  fs.unlink(filePath, function(err) {
-    if(err && err.code == 'ENOENT') {
-        // file doens't exist
-        console.info("File doesn't exist, won't remove it.");
-    } else if (err) {
-        // other errors, e.g. maybe we don't have enough permission
-        console.error("Error occurred while trying to remove file");
-    } else {
-        console.info(`removed`);
-    }
-});
 
-})
 
 module.exports = router;

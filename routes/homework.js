@@ -4,7 +4,7 @@ const HomeWork = require("../models/homework");
 const HomeworkAnswers = require("../models/homework_answer");
 const passport = require('passport');
 // Get all homeworks
-router.get("/",passport.authenticate('jwt', { session : false}), async (req, res) => {
+router.get("/", async (req, res) => {
 	const homeworks = await HomeWork.find().populate("course")
 	res.send(homeworks)
 })
