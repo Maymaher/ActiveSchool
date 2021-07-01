@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
 	const course = new Course({
 		name: req.body.name,
 		description: req.body.description,
+		Zoomlink:req.body.Zoomlink,
 		level: req.body.level
 	})
 	await course.save()

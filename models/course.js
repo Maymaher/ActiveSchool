@@ -6,7 +6,7 @@ courseschema=new mongoose.Schema({
 name:{type:String,required:true},
 
 description:{type:String,required:true},
-
+Zoomlink:{type:String,required:true},
 level: {type:mongoose.Schema.Types.ObjectId, ref:'Level', required:true},
 
 });
