@@ -35,7 +35,7 @@ router.get('/:id',  (req, res) => {
 
 //teacher add new exam data
 
-router.post('/',  passport.authenticate('jwt', { session : false}),(req, res) => {
+router.post('/',(req, res) => {
    
   const   course=req.body.course;
   const   level=req.body.level;
@@ -110,6 +110,7 @@ router.get("/:id/specificExam", async (req, res) => {
   try {
 
 const exam = await examModel.findOne({ _id: req.params.id }).populate("teacher").populate("course").populate("level")
+
 res.send(exam)
   }
   catch {

@@ -90,6 +90,20 @@ router.post('/matrialFile',  passport.authenticate('jwt', { session : false}),(r
 
 })
 
+//Get All material
+router.get("/material", async (req, res) => {
+	const materials = await materialModel.find().populate("course").populate("teacher")
+	res.send(materials)
+	
+}) 
+
+
+//Get All material files
+router.get("/materialFiles", async (req, res) => {
+	const materialFiles = await materialFileModel.find().populate("material")
+	res.send(materialFiles)
+	
+}) 
 
 
 
