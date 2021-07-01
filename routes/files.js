@@ -4,6 +4,7 @@ var multer  = require('multer');
 var Gallery = require('../models/exam');
 const Course = require("../models/course");
 var ExamAnswer = require("../models/exam_answer");
+var homework = require("../models/homework");
 var fs = require('fs');
 
 
@@ -49,7 +50,7 @@ var upload = multer({storage: storage});
 
 
 //Upload Exam
-router.post('/',upload.single('file'), async function(req, res, next) {
+router.post('/homework',upload.single('file'), async function(req, res, next) {
     if(!req.file ) {
         return res.status(500).send({ message: 'Upload fail'});
     } 
@@ -78,6 +79,11 @@ router.post('/',upload.single('file'), async function(req, res, next) {
         
     }
 });
+
+
+
+
+
 
 
 

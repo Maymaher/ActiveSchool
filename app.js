@@ -40,6 +40,9 @@ var api = require('./routes/user_auth');
 
 var galleryRouter = require('./routes/files');
 var ExamAnswerUploadRouter = require('./routes/exam_answer_upload');
+var HomeworkUploadRouter = require('./routes/homework_upload');
+var HomeworkAnswerUploadRouter = require('./routes/homework_answer_upload');
+var MaterialFileUploadRouter = require('./routes/material_upload');
 
 
 var app = express();
@@ -75,6 +78,9 @@ app.use('/teacherclass', teacherClassRouter);
 app.use('/teacher',teacherRouter);
 app.use('/gallery', galleryRouter);
 app.use('/examAnswerUpload',ExamAnswerUploadRouter);
+app.use('/homeworkUpload',HomeworkUploadRouter);
+app.use('/homeworkAnswerUpload',HomeworkAnswerUploadRouter);
+app.use('/materialUpload',MaterialFileUploadRouter);
 
 
 app.use(logger('dev'));

@@ -49,6 +49,16 @@ router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => 
 
 })
 
+//Delete individual Exam Answer
+router.delete("/:id", async (req, res) => {
+	try {
+		await examAnswerModel.deleteOne({ _id: req.params.id })
+		res.status(204).send()
+	} catch {
+		res.status(404)
+		res.send({ error: "Exam Answer doesn't exist!" })
+	}
+})
 
 
 module.exports = router;
