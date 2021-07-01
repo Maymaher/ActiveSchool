@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
 })
 
 //Get individual Course
-router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
+router.get("/:id",async (req, res) => {
     try {
 
 	const course = await Course.findOne({ _id: req.params.id }).populate("level")
