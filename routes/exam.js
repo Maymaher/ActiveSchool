@@ -20,6 +20,17 @@ router.get('/:id',  (req, res) => {
   })
 
 
+  //GET all course exams
+router.get('/courseexam/:id',  (req, res) => {
+  console.log('list all exams')
+  examModel.find({course:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list class") 
+    
+    }).populate("teacher").populate("course").populate("level")
+
+})
+
 
 //teacher add new exam data
 
