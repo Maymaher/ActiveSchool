@@ -21,10 +21,10 @@ router.get("/:id", async (req, res) => {
 })
 
 //Get courses of individual teacher
-router.get("/:id/courses", async (req, res) => {
+router.get("/:id/courses", passport.authenticate('jwt', { session : false}), async (req, res) => {
     try {
 
-	const courses = await TeacherCourseModel.find({ teacher: req.params.id }).populate('teacher').populate('course')
+	const courses = await TeacherCourseModel.find({ teacher: req.params.id }).populate('teacher').populate('course');
 	res.json(courses)
     }
     catch {
@@ -39,8 +39,22 @@ router.post("/:id/courses", async (req, res) => {
 		teacher: req.params.id,
 		course: req.body.course
 	})
-	await course.save()
-	res.send(course)
+	// await course.save()
+	// res.send(course)
+
+	await course.save((err, course) => {
+		if (err) {
+		  return res.send({
+			success: false,
+			message: 'Failed to save the user'
+		  });
+		}
+		res.send({
+		  success: true,
+		  message: 'User Saved',
+		  course
+		});
+	  });
 })
 
 //Get All Teachers
@@ -73,11 +87,11 @@ router.get("/", async (req, res) => {
 
 
 //Delete specific course from individual teacher
-router.delete("/:id/courses", async (req, res) => {
+router.delete("/:id/courses/:courseId",async (req, res) => {
 	try {
 		
-		await TeacherCourseModel.deleteOne({ teacher: req.params.id ,course:req.body.course})
-		res.status(204).send()
+		await TeacherCourseModel.deleteOne({ teacher: req.params.id ,course:req.params.courseId})
+		res.status(200).send()
 	} catch {
 		res.status(404)
 		res.send({ error: "Course doesn't exist!" })
@@ -95,9 +109,9 @@ router.get("/:id/nincourses", async (req, res) => {
 
 		}
 		
-         console.log(array);
+        //  console.log(array);
 
-	const courses_not_belong_teacher = await CourseModel.find({ _id: { $nin: array } });
+	const courses_not_belong_teacher = await CourseModel.find({ _id: { $nin: array } }).populate("level");
 
 	res.json(courses_not_belong_teacher)
     }

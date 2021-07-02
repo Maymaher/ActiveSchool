@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const courseseModel = require("../models/course");
 const userModel = require("../models/user");
 const SchedularSturday = require("../models/schedular-Sturday");
 const SchedularSunday = require("../models/schedular-sunday");
@@ -8,7 +9,9 @@ const SchedularTusday = require("../models/schedular-tusday");
 const SchedularWensday = require("../models/schedular-wensday");
 const SchedularThrisday = require("../models/schedular-thrisday");
 const schedual_couseModel = require("../models/schedular-wensday");
-
+const Attendence = require("../models/attendence");
+const ExamAnswer = require("../models/exam_answer");
+const Exam = require("../models/exam");
 const schedualModel = require("../models/schedual");
 const parentModel = require("../models/parent");
 const passport = require('passport');
@@ -29,6 +32,29 @@ router.get('/schedual/:id', (req, res) => {
   
   })
 
+
+
+  // get courses
+
+  router.get('/courses/:id', (req, res) => {
+    console.log('list level courses ')
+    courseseModel.find({level:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list level courses") 
+      
+      })
+  
+  })
+
+  router.get('/coursesInfo/:id', (req, res) => {
+    console.log('list level courses ')
+    courseseModel.find({_id:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list level courses") 
+      
+      })
+  
+  })
   // router.get('/scheduall/:id', (req, res) => {
   //   console.log('list schedual')
   //   schedualModel.find({_id:req.params.id},(err,data)=>{
@@ -59,7 +85,7 @@ router.get('/schedual/:id', (req, res) => {
       if(!err) return res.json(data) 
       res.send("erro cannot list sturday Courses") 
       
-      })
+      }).populate("Schedual");
   
   })
 
@@ -375,7 +401,7 @@ router.post('/',passport.authenticate('jwt', { session : false}),  (req, res) =>
           if(!err) return res.json(data) 
           res.send("erro cannot list student") 
           
-          })
+          }).populate("level").populate("class")
       
       })
 
@@ -461,7 +487,7 @@ router.get('/parent/:id', passport.authenticate('jwt', { session : false}), (req
 
 //delete user
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",passport.authenticate('jwt', { session : false}), async (req, res) => {
 	try {
 		
 		await userModel.deleteOne({ _id: req.params.id })
@@ -473,13 +499,35 @@ router.delete("/:id", async (req, res) => {
 })
 
 
+//get user by id
+router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
+  try {
+
+const user = await userModel.findOne({ _id: req.params.id })
+res.send(user)
+  }
+  catch {
+  res.status(404)
+  res.send({ error: "Course doesn't exist!" })
+}
+})
+
+
 //Update user data
 router.patch("/:id", async (req, res) => {
 	try {
 		const user = await userModel.findOne({ _id: req.params.id })
 
-		if (req.body.name) {
-			user.name = req.body.name
+		if (req.body.firstName) {
+			user.firstName = req.body.firstName
+		}
+
+    if (req.body.lastName) {
+			user.lastName = req.body.lastName
+		}
+
+    if (req.body.phone) {
+			user.phone = req.body.phone
 		}
 
 		if (req.body.email) {
@@ -506,7 +554,7 @@ router.patch("/:id", async (req, res) => {
 
 
 		await user.save()
-		res.send(user)
+		res.send({user,success:true})
 	} catch {
 		res.status(404)
 		res.send({ error: "user doesn't exist!" })
@@ -524,8 +572,101 @@ router.patch("/:id", async (req, res) => {
           if(!err) return res.json(data) 
           res.send("erro cannot list ProfileInfo") 
           
-          })
+          }).populate("level").populate("class")
       
       })
+
+
+      ///attendence
+
+      router.post('/attendence', (req, res) => {
+        const status=req.body.status;
+        const date=req.body.date;
+        const student=req.body.student;
+
+
+ 
+        console.log(req.body) ///
+        const userData = req.body
+        const userInstance = new Attendence({
+          status,
+          date,
+          student
+      
+      
+        })
+        console.log(userInstance);
+        
+      
+      
+        userInstance.save((err,userDoc)=>{
+            if(!err) return res.json(userDoc)
+            console.log(err);
+            res.send("error occured while saving")
+        })
+    })
     
+    router.get('/attendence/:id', (req, res) => {
+      console.log('list student attendence')
+      // const token =req.header('x-auth');
+      // console.log(token);
+      Attendence.find({student:req.params.id},(err,data)=>{
+        if(!err) return res.json(data) 
+        res.send("erro cannot list student attendence") 
+        
+        })
+    
+    })
+
+//user login status
+
+router.patch("/studenStatuse/:id", async (req, res) => {
+	try {
+    console.log();
+		const user = await userModel.findOne({ _id: req.params.id })
+
+		
+     if (req.body) {
+       console.log(req.body.status);
+			user.status = req.body.status;
+      console.log("mmm");
+
+		 }
+
+     
+		await user.save()
+		res.send(user)
+	} catch {
+		res.status(404)
+		res.send({ error: "user doesn't exist!" })
+	}
+})
+
+router.get('/grade/:id', (req, res) => {
+  console.log('list student grade')
+  // const token =req.header('x-auth');
+  // console.log(token);
+  ExamAnswer.find({student:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list student grade") 
+    
+    }).populate("exam").populate("course");
+
+})
+
+
+///get Student Grade on the exame
+
+router.get('/exam/:id', (req, res) => {
+  console.log('list level exam')
+  // const token =req.header('x-auth');
+  // console.log(token);
+  Exam.find({level:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list exams ") 
+    
+    }).populate("Level");
+
+})
+  
 module.exports = router;

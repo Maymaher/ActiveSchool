@@ -9,7 +9,7 @@ const passport = require('passport');
 // });
 
 //GET all teacher exams
-router.get('/:id', passport.authenticate('jwt', { session : false}), (req, res) => {
+router.get('/:id',  (req, res) => {
     console.log('list all exams')
     examModel.find({teacher:req.params.id},(err,data)=>{
       if(!err) return res.json(data) 
@@ -20,10 +20,22 @@ router.get('/:id', passport.authenticate('jwt', { session : false}), (req, res) 
   })
 
 
+  router.get('exam/:id',  (req, res) => {
+    console.log('list all exams')
+    examModel.find({_id:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list class") 
+      
+      }).populate("teacher").populate("course").populate("level")
+  
+  })
+
+
+
 
 //teacher add new exam data
 
-router.post('/',  passport.authenticate('jwt', { session : false}),(req, res) => {
+router.post('/',(req, res) => {
    
   const   course=req.body.course;
   const   level=req.body.level;
@@ -74,6 +86,60 @@ router.get('/studentExam/:id', passport.authenticate('jwt', { session : false}),
       }).populate("teacher").populate("course").populate("level")
   
   })
+
+
+// Get all exams
+router.get("/", async (req, res) => {
+	const exams = await examModel.find()
+	res.send(exams)
+})
+
+//Delete individual Exam
+router.delete("/:id", async (req, res) => {
+	try {
+		await examModel.deleteOne({ _id: req.params.id })
+		res.status(204).send()
+	} catch {
+		res.status(404)
+		res.send({ error: "Course doesn't exist!" })
+	}
+})
+
+//Get individual Exam
+router.get("/:id/specificExam", async (req, res) => {
+  try {
+
+const exam = await examModel.findOne({ _id: req.params.id }).populate("teacher").populate("course").populate("level")
+
+res.send(exam)
+  }
+  catch {
+  res.status(404)
+  res.send({ error: "Exam doesn't exist!" })
+}
+})
+
+//Update individual Course
+router.patch("/:id", async (req, res) => {
+	try {
+		const exam= await examModel.findOne({ _id: req.params.id })
+
+	
+		if (req.body.to) {
+			exam.to = req.body.to
+		 }
+
+		await exam.save()
+		res.send(exam)
+	} catch {
+		res.status(404)
+		res.send({ error: "Exam doesn't exist!" })
+	}
+})
+
+
+
+
 
 
 module.exports = router;
