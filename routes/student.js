@@ -53,7 +53,7 @@ router.get('/schedual/:id', (req, res) => {
       if(!err) return res.json(data) 
       res.send("erro cannot list level courses") 
       
-      })
+      }).populate("level")
   
   })
   // router.get('/scheduall/:id', (req, res) => {
