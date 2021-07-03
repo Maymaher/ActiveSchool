@@ -106,7 +106,29 @@ router.get("/materialFiles", async (req, res) => {
 }) 
 
 
+//Get meterial by course id
 
+router.get('/material/:id', (req, res) => {
+  console.log('list level material ')
+  materialModel.find({course:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list level material") 
+    
+    })
+
+})
+
+//Get meterialfiles by material id
+
+router.get('/materialfiles/:id', (req, res) => {
+  console.log('list level materialfiles ')
+  materialFileModel.find({material:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list level materialfiles") 
+    
+    })
+
+})
 
 
 module.exports = router;

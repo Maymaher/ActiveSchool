@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const courseseModel = require("../models/course");
+const HomeWorkModel= require("../models/homework");
 const userModel = require("../models/user");
 const SchedularSturday = require("../models/schedular-Sturday");
 const SchedularSunday = require("../models/schedular-sunday");
@@ -665,8 +666,23 @@ router.get('/exam/:id', (req, res) => {
     if(!err) return res.json(data) 
     res.send("erro cannot list exams ") 
     
-    }).populate("Level");
+    })
 
 })
-  
+  //get HomeWork by Course Id
+
+
+router.get('/homework/:id', (req, res) => {
+  console.log('list homework exam')
+  // const token =req.header('x-auth');
+  // console.log(token);
+  HomeWorkModel.find({course:req.params.id},(err,data)=>{
+    if(!err) return res.json(data) 
+    res.send("erro cannot list homework ") 
+    
+    })
+
+})
+
+
 module.exports = router;
