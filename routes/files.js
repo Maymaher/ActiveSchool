@@ -50,7 +50,7 @@ var upload = multer({storage: storage});
 
 
 //Upload Exam
-router.post('/homework',upload.single('file'), async function(req, res, next) {
+router.post('/',upload.single('file'), async function(req, res, next) {
     if(!req.file ) {
         return res.status(500).send({ message: 'Upload fail'});
     } 

@@ -31,16 +31,16 @@ router.post("/", async (req, res) => {
 })
 
 //Get individual Course
-router.get("/:id",async (req, res) => {
-    try {
+router.get("/:id", passport.authenticate('jwt', { session : false}),async (req, res) => {
+    // try {
 
 	const course = await Course.findOne({ _id: req.params.id }).populate("level")
-	res.send({course,success:true})
-    }
-    catch {
-		res.status(404)
-		res.send({ error: "Course doesn't exist!" })
-	}
+	res.send(course)
+    // }
+    // catch {
+	// 	res.status(404)
+	// 	res.send({ error: "Course doesn't exist!" })
+	// }
 })
 
 //Update individual Course
@@ -58,6 +58,10 @@ router.patch("/:id", async (req, res) => {
 
 		if (req.body.level) {
 			course.level = req.body.level
+		 }
+
+		 if (req.body.Zoomlink) {
+			course.Zoomlink = req.body.Zoomlink
 		 }
 
 		await course.save()

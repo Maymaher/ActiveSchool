@@ -30,6 +30,17 @@ router.get('/courseexam/:id',  (req, res) => {
     }).populate("teacher").populate("course").populate("level")
 
 })
+  router.get('exam/:id',  (req, res) => {
+    console.log('list all exams')
+    examModel.find({_id:req.params.id},(err,data)=>{
+      if(!err) return res.json(data) 
+      res.send("erro cannot list class") 
+      
+      }).populate("teacher").populate("course").populate("level")
+  
+  })
+
+
 
 
 //teacher add new exam data
