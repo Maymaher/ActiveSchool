@@ -3,8 +3,18 @@ var router = express.Router();
 const Course = require("../models/course");
 const TeacherCourse=require("../models/teacher_courses")
 const passport = require('passport');
-
-
+const course_level=require("../models/course_level")
+const course_schedual=require("../models/courses_schedual")
+const exam=require("../models/exam")
+const homework=require("../models/homework")
+const matrial=require("../models/material")
+const SchedularSturday = require("../models/schedular-Sturday");
+const SchedularSunday = require("../models/schedular-sunday");
+const SchedularMonday = require("../models/schedular-monday");
+const SchedularTusday = require("../models/schedular-tusday");
+const SchedularWensday = require("../models/schedular-wensday");
+const SchedularThrisday = require("../models/schedular-thrisday");
+const schedual_couseModel = require("../models/schedular-wensday");
 // Get all courses
 router.get("/", async (req, res) => {
 	const courses = await Course.find().populate("level")
@@ -77,8 +87,25 @@ router.patch("/:id", async (req, res) => {
 //Delete individual Course
 router.delete("/:id", async (req, res) => {
 	try {
-		await Course.findOneAndRemove({ _id: req.params.id })
+		const course = await Course.findOne({ _id: req.params.id })
+		await SchedularMonday.findOneAndRemove({ courses: course.name })
+		await SchedularSturday.findOneAndRemove({ courses: course.name })
+		await SchedularSunday.findOneAndRemove({ courses: course.name })
+		await SchedularThrisday.findOneAndRemove({ courses: course.name })
+		await SchedularTusday.findOneAndRemove({ courses: course.name })
+		await SchedularWensday.findOneAndRemove({ courses: course.name })
+
+		await homework.findOneAndRemove({ course: req.params.id })
+		await matrial.findOneAndRemove({ course: req.params.id })
+
 		await TeacherCourse.findOneAndRemove({ course: req.params.id })
+		await course_schedual.findOneAndRemove({ course: req.params.id })
+		await exam.findOneAndRemove({ course: req.params.id })
+
+		await course_level.findOneAndRemove({ course: req.params.id })
+		await Course.findOneAndRemove({ _id: req.params.id })
+		
+		
 
 		res.status(204).send()
 	} catch {
