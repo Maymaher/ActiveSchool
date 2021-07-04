@@ -51,7 +51,9 @@ var upload = multer({storage: storage});
 //Upload Homework Answer to Homework
 router.post('/:id',upload.single('file'), async function(req, res, next) {
     if(!req.file ) {
+      console.log(req.file);
         return res.status(500).send({ message: 'Upload fail'});
+        
     } 
     
     else {

@@ -66,7 +66,7 @@ router.delete("/:id",passport.authenticate('jwt', { session : false}), async (re
 })
 
 //Get Answers of one homework
-router.get("/:id/answers", passport.authenticate('jwt', { session : false}),async (req, res) => {
+router.get("/:id/answers", async (req, res) => {
     try {
 
 	const homework_answers = await HomeworkAnswers.find({ homework: req.params.id }).populate("student").populate("homework")
