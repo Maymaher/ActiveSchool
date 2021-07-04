@@ -22,7 +22,7 @@ router.get('/class',passport.authenticate('jwt', { session : false}), (req, res)
 
  
 
-router.post('/',passport.authenticate('jwt', { session : false}), (req, res) => {
+router.post('/', (req, res) => {
   const   number=req.body.number;
 
   console.log(req.body) ///
